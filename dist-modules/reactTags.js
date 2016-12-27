@@ -46,6 +46,18 @@ var DefaultClassNames = {
   suggestions: 'ReactTags__suggestions'
 };
 
+var DefaultStyles = {
+  tags: {},
+  tagInput: {},
+  tagInputField: {},
+  selected: {},
+  tag: {},
+  remove: {},
+  suggestions: {},
+  activeSuggestionItem: {},
+  suggestionItem: {}
+};
+
 var ReactTags = _react2.default.createClass({
   displayName: 'ReactTags',
 
@@ -69,7 +81,8 @@ var ReactTags = _react2.default.createClass({
     removeComponent: _react2.default.PropTypes.func,
     autocomplete: _react2.default.PropTypes.oneOfType([_react2.default.PropTypes.bool, _react2.default.PropTypes.number]),
     readOnly: _react2.default.PropTypes.bool,
-    classNames: _react2.default.PropTypes.object
+    classNames: _react2.default.PropTypes.object,
+    styles: _react2.default.PropTypes.object
   },
   getDefaultProps: function getDefaultProps() {
     return {
@@ -87,7 +100,8 @@ var ReactTags = _react2.default.createClass({
   },
   componentWillMount: function componentWillMount() {
     this.setState({
-      classNames: _extends({}, DefaultClassNames, this.props.classNames)
+      classNames: _extends({}, DefaultClassNames, this.props.classNames),
+      styles: _extends({}, DefaultStyles, this.props.styles)
     });
   },
   componentDidMount: function componentDidMount() {
@@ -150,10 +164,10 @@ var ReactTags = _react2.default.createClass({
     }
   },
   handleKeyDown: function handleKeyDown(e) {
-    var _state = this.state;
-    var query = _state.query;
-    var selectedIndex = _state.selectedIndex;
-    var suggestions = _state.suggestions;
+    var _state = this.state,
+        query = _state.query,
+        selectedIndex = _state.selectedIndex,
+        suggestions = _state.suggestions;
 
     // hide suggestions menu on escape
 
@@ -312,9 +326,10 @@ var ReactTags = _react2.default.createClass({
 
     var tagInput = !this.props.readOnly ? _react2.default.createElement(
       'div',
-      { className: this.state.classNames.tagInput },
+      { className: this.state.classNames.tagInput, style: this.state.styles.tagInput },
       _react2.default.createElement('input', { ref: 'input',
         className: this.state.classNames.tagInputField,
+        style: this.state.styles.tagInputField,
         type: 'text',
         placeholder: placeholder,
         'aria-label': placeholder,
@@ -329,15 +344,17 @@ var ReactTags = _react2.default.createClass({
         handleHover: this.handleSuggestionHover,
         minQueryLength: this.props.minQueryLength,
         shouldRenderSuggestions: this.props.shouldRenderSuggestions,
-        classNames: this.state.classNames })
+        classNames: this.state.classNames,
+        styles: this.state.styles
+      })
     ) : null;
 
     return _react2.default.createElement(
       'div',
-      { className: this.state.classNames.tags },
+      { className: this.state.classNames.tags, style: this.state.styles.tags },
       _react2.default.createElement(
         'div',
-        { className: this.state.classNames.selected },
+        { className: this.state.classNames.selected, style: this.state.styles.selected },
         tagItems,
         this.props.inline && tagInput
       ),

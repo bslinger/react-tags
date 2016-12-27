@@ -8,7 +8,9 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
-var _lodash = require('lodash');
+var _isEqual = require('lodash/isEqual');
+
+var _isEqual2 = _interopRequireDefault(_isEqual);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -34,7 +36,7 @@ var Suggestions = function (_Component) {
   _inherits(Suggestions, _Component);
 
   function Suggestions() {
-    var _Object$getPrototypeO;
+    var _ref;
 
     var _temp, _this, _ret;
 
@@ -44,12 +46,12 @@ var Suggestions = function (_Component) {
       args[_key] = arguments[_key];
     }
 
-    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_Object$getPrototypeO = Object.getPrototypeOf(Suggestions)).call.apply(_Object$getPrototypeO, [this].concat(args))), _this), _this.shouldComponentUpdate = function (nextProps) {
-      var _this2 = _this;
-      var props = _this2.props;
+    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = Suggestions.__proto__ || Object.getPrototypeOf(Suggestions)).call.apply(_ref, [this].concat(args))), _this), _this.shouldComponentUpdate = function (nextProps) {
+      var _this2 = _this,
+          props = _this2.props;
 
       var shouldRenderSuggestions = props.shouldRenderSuggestions || _this.shouldRenderSuggestions;
-      return !(0, _lodash.isEqual)(_this.props.suggestions, nextProps.suggestions) || shouldRenderSuggestions(props.query);
+      return !(0, _isEqual2.default)(_this.props.suggestions, nextProps.suggestions) || shouldRenderSuggestions(props.query);
     }, _this.componentDidUpdate = function (prevProps) {
       var suggestionsContainer = _this.refs.suggestionsContainer;
       if (suggestionsContainer && prevProps.selectedIndex !== _this.props.selectedIndex) {
@@ -65,14 +67,14 @@ var Suggestions = function (_Component) {
         __html: input.replace(RegExp(escapedRegex, "gi"), "<mark>$&</mark>")
       };
     }, _this.shouldRenderSuggestions = function (query) {
-      var _this3 = _this;
-      var props = _this3.props;
+      var _this3 = _this,
+          props = _this3.props;
 
       var minQueryLength = props.minQueryLength || 2;
       return props.query.length >= minQueryLength;
     }, _this.render = function () {
-      var _this4 = _this;
-      var props = _this4.props;
+      var _this4 = _this,
+          props = _this4.props;
 
       var suggestions = props.suggestions.map(function (item, i) {
         return _react2.default.createElement(
@@ -80,7 +82,9 @@ var Suggestions = function (_Component) {
           { key: i,
             onMouseDown: props.handleClick.bind(null, i),
             onMouseOver: props.handleHover.bind(null, i),
-            className: i == props.selectedIndex ? "active" : "" },
+            className: i == props.selectedIndex ? "active" : "",
+            style: i == props.selectedIndex ? this.state.styles.activeSuggestionItem : this.state.styles.suggestionItem
+          },
           _react2.default.createElement('span', { dangerouslySetInnerHTML: this.markIt(item, props.query) })
         );
       }.bind(_this));
@@ -93,7 +97,7 @@ var Suggestions = function (_Component) {
 
       return _react2.default.createElement(
         'div',
-        { ref: 'suggestionsContainer', className: _this.props.classNames.suggestions },
+        { ref: 'suggestionsContainer', className: _this.props.classNames.suggestions, style: _this.state.styles.suggestions },
         _react2.default.createElement(
           'ul',
           null,
@@ -116,6 +120,7 @@ Suggestions.propTypes = {
   handleHover: _react2.default.PropTypes.func.isRequired,
   minQueryLength: _react2.default.PropTypes.number,
   shouldRenderSuggestions: _react2.default.PropTypes.func,
-  classNames: _react2.default.PropTypes.object
+  classNames: _react2.default.PropTypes.object,
+  styles: _react2.default.PropTypes.object
 };
 exports.default = Suggestions;
