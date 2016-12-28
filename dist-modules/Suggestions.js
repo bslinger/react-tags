@@ -83,7 +83,7 @@ var Suggestions = function (_Component) {
             onMouseDown: props.handleClick.bind(null, i),
             onMouseOver: props.handleHover.bind(null, i),
             className: i == props.selectedIndex ? "active" : "",
-            style: i == props.selectedIndex ? this.state.styles.activeSuggestionItem : this.state.styles.suggestionItem
+            style: i == props.selectedIndex ? props.styles.activeSuggestionItem : props.styles.suggestionItem
           },
           _react2.default.createElement('span', { dangerouslySetInnerHTML: this.markIt(item, props.query) })
         );
@@ -97,7 +97,7 @@ var Suggestions = function (_Component) {
 
       return _react2.default.createElement(
         'div',
-        { ref: 'suggestionsContainer', className: _this.props.classNames.suggestions, style: _this.state.styles.suggestions },
+        { ref: 'suggestionsContainer', className: _this.props.classNames.suggestions, style: _this.props.styles.suggestions },
         _react2.default.createElement(
           'ul',
           null,
