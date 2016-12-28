@@ -54,6 +54,7 @@ var DefaultStyles = {
   tag: {},
   remove: {},
   suggestions: {},
+  suggestionsList: {},
   activeSuggestionItem: {},
   suggestionItem: {}
 };

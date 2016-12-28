@@ -100,7 +100,7 @@ var Suggestions = function (_Component) {
         { ref: 'suggestionsContainer', className: _this.props.classNames.suggestions, style: _this.props.styles.suggestions },
         _react2.default.createElement(
           'ul',
-          null,
+          { style: _this.props.styles.suggestionsList },
           ' ',
           suggestions,
           ' '
